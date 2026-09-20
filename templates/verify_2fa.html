@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}2FA Verification{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2>Two-Factor Authentication</h2>
+
+    <p>
+        Enter the 6-digit verification code
+        from your authenticator app.
+    </p>
+
+    <form method="post" action="{{ url_for('verify_2fa') }}">
+
+        <!-- CSRF Protection -->
+        <input type="hidden"
+               name="csrf_token"
+               value="{{ csrf_token() }}">
+
+        <label for="code">
+            Verification Code
+        </label>
+
+        <input
+            type="text"
+            id="code"
+            name="code"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            autocomplete="one-time-code"
+            placeholder="123456"
+            required
+        >
+
+        <button type="submit">
+            Verify
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

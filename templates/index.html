@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}SecureAuth{% endblock %}
+{% block content %}
+<section class="hero">
+<h1>Secure Login & Authentication System</h1>
+<p>Flask + SQLite + Argon2id + TOTP 2FA + security testing.</p>
+<a class="button" href="{{ url_for('register') }}">Create Account</a>
+<a class="button secondary" href="{{ url_for('login') }}">Login</a>
+</section>
+{% endblock %}

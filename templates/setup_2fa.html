@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Enable 2FA{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2>Enable Two-Factor Authentication</h2>
+
+    <p>
+        Add the following TOTP URI to your authenticator app.
+    </p>
+
+    <code class="uri">
+        {{ uri }}
+    </code>
+
+    <p>
+        <strong>Secret:</strong>
+        {{ secret }}
+    </p>
+
+    <p>
+        After adding it to your authenticator,
+        enter the current 6-digit code below.
+    </p>
+
+    <form method="post" action="{{ url_for('setup_2fa') }}">
+
+        <!-- CSRF Protection -->
+        <input type="hidden"
+               name="csrf_token"
+               value="{{ csrf_token() }}">
+
+        <label for="code">
+            6-digit verification code
+        </label>
+
+        <input
+            type="text"
+            id="code"
+            name="code"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            autocomplete="one-time-code"
+            placeholder="123456"
+            required
+        >
+
+        <button type="submit">
+            Enable 2FA
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

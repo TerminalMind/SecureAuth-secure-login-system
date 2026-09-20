@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h2>Login</h2>
+
+    <form method="post" action="{{ url_for('login') }}">
+
+        <!-- CSRF Protection -->
+        <input type="hidden"
+               name="csrf_token"
+               value="{{ csrf_token() }}">
+
+        <label for="identifier">
+            Username or Email
+        </label>
+
+        <input
+            type="text"
+            id="identifier"
+            name="identifier"
+            autocomplete="username"
+            required
+        >
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+</div>
+
+{% endblock %}

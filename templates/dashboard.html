@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block content %}<div class="card"><h2>Security Dashboard</h2>
+<p>Welcome, <strong>{{ user['username'] }}</strong>.</p>
+<ul>
+<li>Email: {{ user['email'] }}</li>
+<li>2FA: {{ 'Enabled' if user['totp_enabled'] else 'Disabled' }}</li>
+<li>Last login: {{ user['last_login'] or 'First login' }}</li>
+</ul>
+{% if not user['totp_enabled'] %}<a class="button" href="{{ url_for('setup_2fa') }}">Enable 2FA</a>{% endif %}
+<h3>Recent Security Events</h3>
+<table><tr><th>Event</th><th>Time</th></tr>
+{% for log in logs %}<tr><td>{{ log['event'] }}</td><td>{{ log['created_at'] }}</td></tr>{% endfor %}
+</table>
+</div>{% endblock %}

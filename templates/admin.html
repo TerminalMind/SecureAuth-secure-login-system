@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Admin{% endblock %}
+{% block content %}<div class="card"><h2>Admin Security Dashboard</h2>
+<h3>Users</h3><table><tr><th>ID</th><th>Username</th><th>Email</th><th>Locked</th><th>2FA</th></tr>
+{% for u in users %}<tr><td>{{u['id']}}</td><td>{{u['username']}}</td><td>{{u['email']}}</td><td>{{u['is_locked']}}</td><td>{{u['totp_enabled']}}</td></tr>{% endfor %}
+</table>
+<h3>Recent Audit Logs</h3><table><tr><th>User</th><th>Event</th><th>IP</th><th>Time</th></tr>
+{% for l in logs %}<tr><td>{{l['username']}}</td><td>{{l['event']}}</td><td>{{l['ip']}}</td><td>{{l['created_at']}}</td></tr>{% endfor %}
+</table></div>{% endblock %}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}SecureAuth{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+
+    <a href="{{ url_for('index') }}">
+        SecureAuth
+    </a>
+
+    {% if session.get('user_id') %}
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <form method="post"
+              action="{{ url_for('logout') }}"
+              style="display:inline;">
+
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token() }}">
+
+            <button type="submit">
+                Logout
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <a href="{{ url_for('login') }}">
+            Login
+        </a>
+
+        <a href="{{ url_for('register') }}">
+            Register
+        </a>
+
+    {% endif %}
+
+</nav>
+<main>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="messages">{% for m in messages %}<div>{{ m }}</div>{% endfor %}</div>
+{% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>
